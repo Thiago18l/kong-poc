@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+str=$1
+echo $str
+
+hostname=${str%:*}
+port=${str#*:}
+
+nTries=0
+result=1
+
+while true; do
+    timeout 1 bash -c '> /dev/tcp/'$hostname'/'$port''
+    result=$?
+    nTries=$((nTries + 1))
+
+    if [[ $result -eq 0 ]]; then
+        break
+    fi
+
+    if [[ $nTries -gt 60 ]]; then
+        break
+    fi
+    sleep 1
+done
+
+exit $result

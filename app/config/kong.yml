@@ -1,0 +1,17 @@
+_format_version: "3.0"
+_transform: true
+services:
+    - name: fleet-api
+      url: https://dev.fleet.akasoft.com.br
+      tags:
+      - fleet-api
+      routes:
+      - name: Routes
+        paths:
+        - /
+        - /users
+plugins:
+    - name: prometheus
+      service: example-service
+      config:
+        latency_metrics: true
